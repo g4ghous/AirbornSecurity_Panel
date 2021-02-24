@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Serverurl } from '../Common/ServerUrl';
 import axios from 'axios';
-import $ from 'jquery';
 import swal from 'sweetalert';
+import $ from 'jquery';
 
 
 

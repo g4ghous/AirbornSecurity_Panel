@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import logo2 from "../component/assets/images/logo.png";
-import { Serverurl, ServerurllogRegister } from '../Common/ServerUrl';
+import { Serverurl } from '../Common/ServerUrl';
 import axios from 'axios';
 import Button from 'reactstrap-button-loader';
 
@@ -87,28 +87,17 @@ export class TravelLogin extends Component {
             })
 
             var error = document.getElementById('err');
-            if (this.state.email === '' || this.state.password === '') {
-                this.setState({
-                    error: 'Please fill fields carefully'
-                })
-                error.classList.add('errorMsg');
-                setTimeout(() => {
-                    error.classList.remove('errorMsg')
-                    this.setState({
-                        error: ''
-                    })
-                }, 3000)
-            } else {
+           
                 var data;
                 axios({
                     method: 'post',
-                    url: ServerurllogRegister + 'login',
+                    url: Serverurl + 'login',
                     data: data,
                 })
                     .then(res => {
-                        console.log('res', res.data.data)
-                        console.log('Token', res.data.data.access_token)
-                        localStorage.setItem('token', res.data.data.access_token)
+                        console.log('res', res.data)
+                        console.log('Token', res.data.success.token)
+                        localStorage.setItem('token', res.data.success.token)
                         window.location.href = "/component/Dashboard"
 
                         this.setState({
@@ -117,89 +106,89 @@ export class TravelLogin extends Component {
                         })
                         if (res.data.status === true) {
                             
-                            localStorage.setItem("userId", res.data.access_token)
+                            localStorage.setItem("userId", res.data.token)
                             localStorage.setItem("email", res.data.email)
                             localStorage.setItem('data', res.data.data)
                         }
 
 
-                        localStorage.setItem("userId", res.data.data.access_token)
+                        localStorage.setItem("userId", res.data.data.token)
 
 
-                        axios({
-                            method: 'get',
-                            url: Serverurl + 'user',
-                            headers: {
-                                Authorization: 'Bearer' + ' ' + res.data.data.access_token
-                            }
+                        // axios({
+                        //     method: 'get',
+                        //     url: Serverurl + 'user',
+                        //     headers: {
+                        //         Authorization: 'Bearer' + ' ' + res.data.data.token
+                        //     }
 
-                        })
+                        // })
 
-                            .then((response) => {
-                                console.log('User', response.data.data)
-                                // console.log("Type:", response.data.data.user_type)
-                                console.log("userId:", response.data.data.id)
+                            // .then((response) => {
+                            //     console.log('User', response.data.data)
+                            //     // console.log("Type:", response.data.data.user_type)
+                            //     console.log("userId:", response.data.data.id)
 
-                                this.setState((res) => {
-                                    if (res.status == false) {
-                                        this.setState({
-                                            errorText: data.message
-                                        })
-                                        if (data.errors) {
-                                            if (data.errors.email) {
-                                                if (data.errors.email.ERR_00001) {
-                                                    this.setState({
+                            //     this.setState((res) => {
+                            //         if (res.status == false) {
+                            //             this.setState({
+                            //                 errorText: data.message
+                            //             })
+                            //             if (data.errors) {
+                            //                 if (data.errors.email) {
+                            //                     if (data.errors.email.ERR_00001) {
+                            //                         this.setState({
 
-                                                        emailError: '* Email is required'
-                                                    })
-                                                }
+                            //                             emailError: '* Email is required'
+                            //                         })
+                            //                     }
 
-                                                if (data.errors.email.ERR_00005) {
-                                                    this.setState({
+                            //                     if (data.errors.email.ERR_00005) {
+                            //                         this.setState({
 
-                                                        emailError: '* Email is invalid'
-                                                    })
-                                                }
-                                            }
-                                            if (data.errors.password) {
-                                                if (data.errors.password.ERR_00001) {
-                                                    this.setState({
+                            //                             emailError: '* Email is invalid'
+                            //                         })
+                            //                     }
+                            //                 }
+                            //                 if (data.errors.password) {
+                            //                     if (data.errors.password.ERR_00001) {
+                            //                         this.setState({
 
-                                                        passwordError: '* Password is required'
-                                                    })
-                                                }
-                                            }
-                                        }
-                                    }
-                                })
+                            //                             passwordError: '* Password is required'
+                            //                         })
+                            //                     }
+                            //                 }
+                            //             }
+                            //         }
+                            //     })
 
-                            })
-                            .catch((val) => {
-                                console.log("error:", val)
-                            })
+                            // })
+                            // .catch((val) => {
+                            //     console.log("error:", val)
+                            // })
 
 
                     })
                     .catch((err) => {
-                        console.log({ err })
-                        if (err) {
-                            error.classList.add('errorMsg');
-                            this.setState({
-                                error: 'Login Failed! Please try again',
-                                loading: true
-                            })
-                            error.classList.add('errorMsg');
-                            setTimeout(() => {
-                                error.classList.remove('errorMsg')
-                                this.setState({
-                                    error: '',
-                                    loading: false
-                                })
-                            }, 3000)
-                        }
+                        // console.log({ err })
+                        // if (err) {
+                        //     error.classList.add('errorMsg');
+                        //     this.setState({
+                        //         error: 'Login Failed! Please try again',
+                        //         loading: true
+                        //     })
+                        //     error.classList.add('errorMsg');
+                        //     setTimeout(() => {
+                        //         error.classList.remove('errorMsg')
+                        //         this.setState({
+                        //             error: '',
+                        //             loading: false
+                        //         })
+                        //     }, 3000)
+                        // }
                     })
 
-            }
+            
         }
     }
 
@@ -248,12 +237,6 @@ export class TravelLogin extends Component {
                                         <div className="form-group text-center row m-t-20">
                                             <div className="col-12">
                                                 <button className="btn btn-danger btn-block waves-effect waves-light" type="submit" onClick={this.Login.bind(this)}>Log In</button>
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group m-t-10 mb-0 row">
-                                            <div className="col-sm-12 m-t-20 my-forgot">
-                                                <a href="/component/TravelForgot" className="text-muted"><i className="mdi mdi-lock"></i> <small>Forgot your password ?</small></a>
                                             </div>
                                         </div>
                                     </form>

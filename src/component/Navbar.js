@@ -72,24 +72,20 @@ export class Navbar extends Component {
     // }
 
     logout() {
-        localStorage.removeItem('userId')
-        localStorage.removeItem('email')
         localStorage.removeItem('token')
         window.location.reload();
         window.location.href = "/"
     }
 
     render() {
-        var userId = localStorage.getItem('userId')
-        if (window.location.pathname === '/' || !localStorage.getItem('userId')) return null;
-        if (window.location.pathname === '/component/TravelForgot' || !localStorage.getItem('userId')) return null;
+        var token = localStorage.getItem('token')
         return (
             <div>
                 <div id="preloader"><div id="status"><div className="spinner"></div></div></div>
                 <div id="wrapper">
 
                     {
-                        userId
+                        token
                             ?
                             <div className="left side-menu">
                                 <button type="button" className="button-menu-mobile button-menu-mobile-topbar open-left waves-effect">
@@ -119,82 +115,7 @@ export class Navbar extends Component {
                                                     <i className="fas fa-user-secret"></i>
                                                     <span style={{ fontSize: "10.7px" }}>Employees</span>
                                                 </a>
-                                            </li>
-                                            {/* <li>
-                                                <a href="/component/gridBooking" className="waves-effect">
-                                                    <i className="fab fa-bootstrap"></i>
-                                                    <span style={{ fontSize: "10.7px" }}>Bookings</span>
-                                                </a>
-                                            </li> */}
-                                            {/* <li>
-                                                <a href="/component/gridOrders" className="waves-effect">
-                                                    <i className="fab fa-first-order"></i>
-                                                    <span style={{ fontSize: "10.7px" }}>Orders</span>
-                                                </a>
-                                            </li> */}
-                                            {/* <li>
-                                                <a href="/component/gridVehicles" className="waves-effect">
-                                                    <i className="fas fa-car"></i>
-                                                    <span style={{ fontSize: "10.7px" }}>Vehicles</span>
-                                                </a>
-                                            </li> */}
-                                            {/* <li>
-                                                <a href="/component/gridCoupon" className="waves-effect">
-                                                    <i className="fa fa-tag fa-lg"></i>
-                                                    <span style={{ fontSize: "10.7px" }}>Coupons</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/component/gridReports" className="waves-effect">
-                                                    <i className="fa fa-file"></i>
-                                                    <span style={{ fontSize: "10.7px" }}>Reports</span>
-                                                </a>
-                                            </li> */}
-
-
-                                            {/* <li className="has_sub">
-                                                    <a href="/component/gridUsers" className="waves-effect"><i className="fas fa-user-alt"></i>
-                                                        <span>  </span>
-                                                    </a>
-                                                </li> */}
-                                            {/* <li>
-                                                <a href="/component/GridEvents" className="waves-effect"><i className="fas fa-subway"></i><span> Events </span></a>
-                                            </li>
-                                            <li>
-                                                <a href="/component/GridEventType" className="waves-effect"><i className="fas fa-subway"></i><span>Event Type</span></a>
-                                            </li>
-
-                                            <li>
-                                                <a href="/component/GridSponsor" className="waves-effect"><i className="fas fa-road"></i><span>Sponsor</span></a>
-                                            </li>
-
-                                            <li>
-                                                <a href="/component/GridEventList" className="waves-effect"><i className="fas fa-road"></i><span>Event Objectives </span></a>
-                                            </li>
-
-                                            <li>
-                                                <a href="/component/GridFavourites" className="waves-effect"><i className="fas fa-road"></i><span>Favourite </span></a>
-                                            </li>
-
-                                            <li>
-                                                <a href="/component/Slider"><i className="fas fa-road"></i><span>Slider</span></a>
-                                            </li>
-
-                                            <li>
-                                                <a href="/component/GridGuidelines" className="waves-effect"><i className="fas fa-sign-language"></i><span>Guidlines </span></a>
-                                            </li>
-
-                                            <li>
-                                                <a href="/component/GridPolicy" className="waves-effect"><i className="fas fa-user-lock"></i><span>Privacy & Policy</span></a>
-                                            </li>
-
-                                            <li>
-                                                <a href="/component/GridTerms" className="waves-effect"><i className="fas fa-asterisk"></i><span>Terms & Conditions</span></a>
-                                            </li> */}
-
-                                            {/* <li>
-                                                <a href="/component/gridContact" className="waves-effect"><i className="fas fa-comment-dots"></i><span>Contact Us / Feedback</span></a>
-                                            </li> */}
+                                            </li>                                           
                                         </ul>
                                     </div>
 
@@ -208,6 +129,9 @@ export class Navbar extends Component {
 
                     <div className="content-page">
                         <div className="content">
+                        {
+                        token
+                            ?
                             <div className="topbar ">
 
                                 <nav className="navbar-custom fixed-top">
@@ -249,10 +173,6 @@ export class Navbar extends Component {
                                                 <div className="dropdown-item noti-title">
                                                     <h5>Welcome</h5>
                                                 </div>
-                                                <a className="dropdown-item" href="#"><i className="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
-                                                <a className="dropdown-item" href="#"><i className="mdi mdi-wallet m-r-5 text-muted"></i> My Wallet</a>
-                                                <a className="dropdown-item" href="#"><span className="badge badge-success float-right">5</span><i className="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
-                                                <a className="dropdown-item" href="#"><i className="mdi mdi-lock-open-outline m-r-5 text-muted"></i> Lock screen</a>
                                                 {/* {/* <div className="dropdown-divider"></div> */}
                                                 <a className="dropdown-item" onClick={this.logout.bind(this)}><i className="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
                                             </div>
@@ -273,7 +193,9 @@ export class Navbar extends Component {
                                 </nav>
 
                             </div>
-                            {/* <Home /> */}
+                            :
+                            <div></div> 
+                            }
                         </div>
 
 

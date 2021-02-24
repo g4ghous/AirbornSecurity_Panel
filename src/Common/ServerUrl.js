@@ -8,5 +8,4 @@
 // export const Serverurlimg ="http://phplaravel-372182-1163976.cloudwaysapps.com/"
 
 
-export const Serverurl = "http://phpstack-428293-1361867.cloudwaysapps.com/api/"
-export const ServerurllogRegister ="http://phpstack-428293-1361867.cloudwaysapps.com/api/auth/" 
+export const Serverurl = "http://phplaravel-481579-1773197.cloudwaysapps.com/api/"
